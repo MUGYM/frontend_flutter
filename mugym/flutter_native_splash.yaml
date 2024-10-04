@@ -4,14 +4,17 @@ flutter_native_splash:
   web: false
 
   color: "#ffffff"
-  image: assets/icons/mugym_logo1024.png
+  image: assets/icons/mugym_logo.png
+  branding: assets/icons/MUGYM.png
+
   fullscreen: true
   android_gravity: "center"
   ios_content_mode: "center"
 
   android_12:
     color: "#ffffff"
-    image: assets/icons/mugym_logo1024.png
+    image: assets/icons/mugym_logo.png
+    branding: assets/icons/MUGYM.png
     fullscreen: true
     android_gravity: "center"
     ios_content_mode: "center"

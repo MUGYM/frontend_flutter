@@ -121,112 +121,39 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            SingleChildScrollView(
+            const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 15.0),
-                    decoration: BoxDecoration(
-                      color: const Color(0xff3f3f3f),
-                      borderRadius: BorderRadius.circular(500),
-                    ),
-                    child: const Text(
-                      '런닝',
-                      style: TextStyle(
-                        fontFamily: 'Pretendard',
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xffffffff),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 15.0),
-                    decoration: BoxDecoration(
-                      color: const Color(0xfff5f5f5),
-                      borderRadius: BorderRadius.circular(500),
-                    ),
-                    child: const Text(
-                      '요가',
-                      style: TextStyle(
-                          fontFamily: 'Pretendard',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xffb7b7b7)),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 15.0),
-                    decoration: BoxDecoration(
-                      color: const Color(0xfff5f5f5),
-                      borderRadius: BorderRadius.circular(500),
-                    ),
-                    child: const Text(
-                      '필라테스',
-                      style: TextStyle(
-                          fontFamily: 'Pretendard',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xffb7b7b7)),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 15.0),
-                    decoration: BoxDecoration(
-                      color: const Color(0xfff5f5f5),
-                      borderRadius: BorderRadius.circular(500),
-                    ),
-                    child: const Text(
-                      '헬스',
-                      style: TextStyle(
-                          fontFamily: 'Pretendard',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xffb7b7b7)),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 15.0),
-                    decoration: BoxDecoration(
-                      color: const Color(0xfff5f5f5),
-                      borderRadius: BorderRadius.circular(500),
-                    ),
-                    child: const Text(
-                      '클라이밍',
-                      style: TextStyle(
-                          fontFamily: 'Pretendard',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xffb7b7b7)),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 15.0),
-                    decoration: BoxDecoration(
-                      color: const Color(0xfff5f5f5),
-                      borderRadius: BorderRadius.circular(500),
-                    ),
-                    child: const Text(
-                      '사이클링',
-                      style: TextStyle(
-                          fontFamily: 'Pretendard',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xffb7b7b7)),
-                    ),
-                  ),
+                  ExercisePlaylist(
+                      text: '런닝',
+                      textColor: Color(0xffffffff),
+                      backgroundColor: Color(0xff3f3f3f)),
+                  SizedBox(width: 6),
+                  ExercisePlaylist(
+                      text: '요가',
+                      textColor: Color(0xff111111),
+                      backgroundColor: Color(0xffefefef)),
+                  SizedBox(width: 6),
+                  ExercisePlaylist(
+                      text: '필라테스',
+                      textColor: Color(0xff111111),
+                      backgroundColor: Color(0xffefefef)),
+                  SizedBox(width: 6),
+                  ExercisePlaylist(
+                      text: '웨이트',
+                      textColor: Color(0xff111111),
+                      backgroundColor: Color(0xffefefef)),
+                  SizedBox(width: 6),
+                  ExercisePlaylist(
+                      text: '클라이밍',
+                      textColor: Color(0xff111111),
+                      backgroundColor: Color(0xffefefef)),
+                  SizedBox(width: 6),
+                  ExercisePlaylist(
+                      text: '사이클링',
+                      textColor: Color(0xff111111),
+                      backgroundColor: Color(0xffefefef)),
                 ],
               ),
             ),
@@ -265,6 +192,39 @@ class HomeScreen extends StatelessWidget {
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ExercisePlaylist extends StatelessWidget {
+  final String text;
+  final Color textColor;
+  final Color backgroundColor;
+
+  const ExercisePlaylist({
+    super.key,
+    required this.text,
+    required this.textColor,
+    required this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(500),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontFamily: 'Pretendard',
+          fontSize: 13,
+          fontWeight: FontWeight.w700,
+          color: textColor,
         ),
       ),
     );

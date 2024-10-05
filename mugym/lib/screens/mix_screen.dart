@@ -300,6 +300,7 @@ class _MixScreenState extends State<MixScreen> {
   }
 }
 
+// 믹스 생성 팝업창
 void addDialog(context) {
   showModalBottomSheet(
     context: context,

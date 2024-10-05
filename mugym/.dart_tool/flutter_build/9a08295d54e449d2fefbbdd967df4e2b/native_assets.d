@@ -1,0 +1,1 @@
+ /Users/jisoo/frontend_flutter/mugym/.dart_tool/flutter_build/9a08295d54e449d2fefbbdd967df4e2b/native_assets.yaml: 

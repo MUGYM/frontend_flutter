@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mugym/screens/mix_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -7,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -105,10 +107,42 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            const Image(
-              image: AssetImage('assets/images/AI_mix_button.png'),
-              width: double.infinity,
-              height: 48,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MixScreen()),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                constraints: const BoxConstraints(
+                  minHeight: 0,
+                  minWidth: 0,
+                ),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF638DFF), Color(0xFF51D888)],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(500),
+                ),
+                child: const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15.0),
+                    child: Text(
+                      'OO님만의 믹스 생성하러 가기 >',
+                      style: TextStyle(
+                        fontFamily: 'Pretendard',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xffffffff),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 32),
             const Text(
@@ -190,7 +224,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

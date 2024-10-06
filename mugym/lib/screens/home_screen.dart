@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mugym/screens/mix_screen.dart';
+import 'package:mugym/screens/mypage.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,13 +21,21 @@ class HomeScreen extends StatelessWidget {
                 width: 28,
                 height: 28,
               ),
-              const Text(
-                'MY',
-                style: TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff111111),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyPage()),
+                  );
+                },
+                child: const Text(
+                  'MY',
+                  style: TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff111111),
+                  ),
                 ),
               ),
             ],

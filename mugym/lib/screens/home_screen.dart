@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mugym/screens/mix_screen.dart';
 import 'package:mugym/screens/mypage.dart';
+import 'package:mugym/screens/playlist_screen.dart';
+import 'package:mugym/widgets/songinfo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -48,28 +50,34 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '내 플레이리스트',
-                    style: TextStyle(
-                      fontFamily: 'Pretendard',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff111111),
-                    ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              const Text(
+                '내 플레이리스트',
+                style: TextStyle(
+                  fontFamily: 'Pretendard',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff111111),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyPage()),
+                  );
+                },
+                child: const Text(
+                  '전체보기 >',
+                  style: TextStyle(
+                    fontFamily: 'Pretendard',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF777777),
                   ),
-                  Text(
-                    '전체보기 >',
-                    style: TextStyle(
-                      fontFamily: 'Preteard',
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF777777),
-                    ),
-                  )
-                ]),
+                ),
+              )
+            ]),
             const SizedBox(height: 12),
             const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -169,45 +177,43 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   ExercisePlaylist(
-                      text: '런닝',
-                      textColor: Color(0xffffffff),
-                      backgroundColor: Color(0xff3f3f3f)),
+                    text: '런닝',
+                  ),
                   SizedBox(width: 6),
                   ExercisePlaylist(
-                      text: '요가',
-                      textColor: Color(0xff111111),
-                      backgroundColor: Color(0xffefefef)),
+                    text: '요가',
+                  ),
                   SizedBox(width: 6),
                   ExercisePlaylist(
-                      text: '필라테스',
-                      textColor: Color(0xff111111),
-                      backgroundColor: Color(0xffefefef)),
+                    text: '필라테스',
+                  ),
                   SizedBox(width: 6),
                   ExercisePlaylist(
-                      text: '웨이트',
-                      textColor: Color(0xff111111),
-                      backgroundColor: Color(0xffefefef)),
+                    text: '웨이트',
+                  ),
                   SizedBox(width: 6),
                   ExercisePlaylist(
-                      text: '클라이밍',
-                      textColor: Color(0xff111111),
-                      backgroundColor: Color(0xffefefef)),
+                    text: '클라이밍',
+                  ),
                   SizedBox(width: 6),
                   ExercisePlaylist(
-                      text: '사이클링',
-                      textColor: Color(0xff111111),
-                      backgroundColor: Color(0xffefefef)),
+                    text: '사이클링',
+                  ),
                 ],
               ),
             ),
             const SizedBox(height: 12),
-            const SongInfo(songTitle: '노래 제목', albumName: '앨범 명'),
+            const SongInfo(
+                songTitle: '노래 제목', singerName: '가수 명', albumName: '앨범 명'),
             const SizedBox(height: 10),
-            const SongInfo(songTitle: '노래 제목', albumName: '앨범 명'),
+            const SongInfo(
+                songTitle: '노래 제목', singerName: '가수 명', albumName: '앨범 명'),
             const SizedBox(height: 10),
-            const SongInfo(songTitle: '노래 제목', albumName: '앨범 명'),
+            const SongInfo(
+                songTitle: '노래 제목', singerName: '가수 명', albumName: '앨범 명'),
             const SizedBox(height: 10),
-            const SongInfo(songTitle: '노래 제목', albumName: '앨범 명'),
+            const SongInfo(
+                songTitle: '노래 제목', singerName: '가수 명', albumName: '앨범 명'),
             const SizedBox(height: 12),
             Container(
               width: double.infinity,
@@ -244,23 +250,57 @@ class HomeScreen extends StatelessWidget {
 class ExercisePlaylist extends StatelessWidget {
   final String text;
   final Color textColor;
-  final Color backgroundColor;
+
+  Color getTextColor(Set<WidgetState> states) {
+    if (states.contains(WidgetState.pressed)) {
+      return const Color(0xffffffff);
+    }
+    if (states.contains(WidgetState.selected)) {
+      return const Color(0xffffffff);
+    }
+    return textColor;
+  }
 
   const ExercisePlaylist({
     super.key,
     required this.text,
-    required this.textColor,
-    required this.backgroundColor,
+    this.textColor = const Color(0xff111111),
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(500),
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(
+          const Color(0xffefefef),
+        ),
+        foregroundColor: WidgetStateProperty.resolveWith(
+          (states) {
+            /*
+            WidgetState
+              hovered : 호버링 상태 (마우스 커서를 올려둠)
+              focused : 포커스 되었을 때 (텍스트 필드)
+              pressed : 눌렀을 때
+              dragged : 드래그 했을 때
+              selected : 선택 되었을 때 (라이도, 체크박스)
+              disabled : 비활성화 되었을 때
+              scrollUnder : 다른 컴포넌트 밑으로 스크롤링 되었을 때
+              error : 에러 상태
+          */
+            if (states.contains(WidgetState.pressed)) {
+              // 왜 안되지..?
+              return const Color(0xff3f3f3f);
+            }
+            if (states.contains(WidgetState.selected)) {
+              return const Color(0xff3f3f3f);
+            }
+            return const Color(0xffefefef);
+          },
+        ),
+        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(
+            vertical: 5.0, horizontal: 15.0)), // vertical은 왜 적용 안되지..?
       ),
+      onPressed: () {},
       child: Text(
         text,
         style: TextStyle(
@@ -270,64 +310,6 @@ class ExercisePlaylist extends StatelessWidget {
           color: textColor,
         ),
       ),
-    );
-  }
-}
-
-class SongInfo extends StatelessWidget {
-  final String songTitle;
-  final String albumName;
-  // final String imagePath;
-
-  const SongInfo({
-    super.key,
-    required this.songTitle,
-    required this.albumName,
-    // required this.imagePath,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 56,
-          height: 56,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.5),
-            color: const Color(0xFF777777),
-            // image: DecorationImage(
-            //   image: AssetImage(imagePath),
-            //   fit: BoxFit.cover,
-            // ),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              songTitle,
-              style: const TextStyle(
-                fontFamily: 'Pretendard',
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff111111),
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              albumName,
-              style: const TextStyle(
-                fontFamily: 'Pretendard',
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Color(0xff777777),
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 }
@@ -343,54 +325,63 @@ class PlaylistBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: <Widget>[
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                color: const Color(0xFF777777),
-                // image: const DecorationImage(
-                //   image: AssetImage('assets/images/playlist1.jpg'),
-                //   fit: BoxFit.cover,
-                // ),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 10,
-              child: Container(
-                width: 22,
-                height: 22,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => PlaylistScreen(playlistName: playlistName)),
+        );
+      },
+      child: Column(
+        children: [
+          Stack(
+            children: <Widget>[
+              Container(
+                width: 100,
+                height: 100,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(180),
-                  image: const DecorationImage(
-                    image:
-                        AssetImage('assets/images/playlist_button(small).png'),
-                    fit: BoxFit.cover,
-                  ),
+                  borderRadius: BorderRadius.circular(6),
+                  color: const Color(0xFF777777),
+                  // image: const DecorationImage(
+                  //   image: AssetImage('assets/images/playlist1.jpg'),
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
               ),
-            )
-          ],
-        ),
-        const SizedBox(height: 10),
-        Align(
-          alignment: const Alignment(0, 0),
-          child: Text(
-            playlistName,
-            style: const TextStyle(
-              fontFamily: 'Pretendard',
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: Color(0xff111111),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                child: Container(
+                  width: 22,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(180),
+                    image: const DecorationImage(
+                      image: AssetImage(
+                          'assets/images/playlist_button(small).png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10),
+          Align(
+            alignment: const Alignment(0, 0),
+            child: Text(
+              playlistName,
+              style: const TextStyle(
+                fontFamily: 'Pretendard',
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: Color(0xff111111),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-#Sat Oct 05 16:48:30 KST 2024
+#Wed Oct 09 21:56:10 KST 2024
 base.0=/Users/jisoo/frontend_flutter/mugym/build/app/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 base.1=/Users/jisoo/frontend_flutter/mugym/build/app/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
 base.2=/Users/jisoo/frontend_flutter/mugym/build/app/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex

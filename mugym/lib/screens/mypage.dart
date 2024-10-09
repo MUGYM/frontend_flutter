@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:mugym/screens/playlist_screen.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MyPage extends StatelessWidget {
@@ -107,13 +108,53 @@ class MyPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const PlaylistBox(playlistName: '플레이리스트1'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PlaylistScreen(playlistName: '플레이리스트1'),
+                            ),
+                          );
+                        },
+                        child: const PlaylistBox(playlistName: '플레이리스트1'),
+                      ),
                       const SizedBox(height: 15),
-                      const PlaylistBox(playlistName: '플레이리스트2'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PlaylistScreen(playlistName: '플레이리스트2'),
+                            ),
+                          );
+                        },
+                        child: const PlaylistBox(playlistName: '플레이리스트2'),
+                      ),
                       const SizedBox(height: 15),
-                      const PlaylistBox(playlistName: '플레이리스트3'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PlaylistScreen(playlistName: '플레이리스트3'),
+                            ),
+                          );
+                        },
+                        child: const PlaylistBox(playlistName: '플레이리스트3'),
+                      ),
                       const SizedBox(height: 15),
-                      const PlaylistBox(playlistName: '플레이리스트4'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PlaylistScreen(playlistName: '플레이리스트4'),
+                            ),
+                          );
+                        },
+                        child: const PlaylistBox(playlistName: '플레이리스트4'),
+                      ),
                       const SizedBox(height: 35),
                       const Text(
                         '내 운동 기록',

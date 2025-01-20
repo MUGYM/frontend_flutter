@@ -1,10 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:mugym/widgets/songinfo.dart';
 
-class PlaylistScreen extends StatelessWidget {
+class PlaylistScreen extends StatefulWidget {
   final String playlistName;
 
   const PlaylistScreen({super.key, required this.playlistName});
+
+  @override
+  PlaylistScreenState createState() => PlaylistScreenState();
+}
+
+class PlaylistScreenState extends State<PlaylistScreen> {
+  late String _playlistName;
+  final TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _playlistName = widget.playlistName;
+    _textEditingController.text = _playlistName;
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,14 +102,75 @@ class PlaylistScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25),
-              Text(
-                playlistName,
-                style: const TextStyle(
-                  fontFamily: 'Pretendard',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff111111),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _playlistName,
+                    style: const TextStyle(
+                      fontFamily: 'Pretendard',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff111111),
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  // 플레이리스트 이름 변경
+                  GestureDetector(
+                    onTap: () async {
+                      final newName = await showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          String tempName = _playlistName;
+                          return AlertDialog(
+                            backgroundColor: const Color(0xffffffff),
+                            title: const Text('플레이리스트 이름 변경',
+                                style: TextStyle(
+                                  fontFamily: 'Pretendard',
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xff111111),
+                                )),
+                            content: TextField(
+                              onChanged: (value) {
+                                tempName = value;
+                              },
+                              controller: _textEditingController,
+                              decoration: const InputDecoration(
+                                hintText: "새 이름을 입력하세요",
+                              ),
+                              autofocus: true,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('취소'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(tempName);
+                                },
+                                child: const Text('저장'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      if (newName != null && newName.isNotEmpty) {
+                        setState(() {
+                          _playlistName = newName;
+                        });
+                      }
+                    },
+                    child: const Icon(
+                      Icons.edit_outlined,
+                      color: Color(0xff777777),
+                      size: 20,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 25),
               Row(

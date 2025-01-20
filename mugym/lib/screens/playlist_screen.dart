@@ -14,6 +14,7 @@ class PlaylistScreenState extends State<PlaylistScreen> {
   late String _playlistName;
   final TextEditingController _textEditingController = TextEditingController();
 
+// 메모리 누수 방지
   @override
   void initState() {
     super.initState();
